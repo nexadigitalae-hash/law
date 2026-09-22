@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+@theme {
+  /* Strict brand palette - Executive Legal & Gold Theme */
+  --color-slate-dark: #0f172a;     /* Primary Dark (كحلي ملكي عميق) */
+  --color-slate-medium: #1e293b;   /* Secondary (أزرق داكن للمكونات) */
+  --color-slate-light: #c5a059;    /* Gold Accent (ذهبي قانوني فاخر) */
+  --color-slate-ice: #f8fafc;      /* Background / Surface (أبيض دافئ) */
+
+  /* Functional / status colors */
+  --color-success: #059669;
+  --color-processing: #c5a059;
+  --color-urgent: #dc2626;
+
+  /* Semantic tokens */
+  --color-background: #f8fafc;
+  --color-surface: #ffffff;
+  --color-foreground: #0f172a;
+  --color-muted: #475569;
+  --color-muted-foreground: #0f172a;
+
+  /* Primary & Accent tokens */
+  --color-primary: #0f172a;
+  --color-primary-foreground: #ffffff;
+  --color-accent: #c5a059;
+  --color-accent-foreground: #0f172a;
+  --color-highlight: #d4af37;
+  --color-border: #e2e8f0;
+
+  --font-sans: "Tajawal", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-heading: "Tajawal", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --radius: 0.75rem;
+  --shadow-soft: 0 4px 24px -8px rgba(15, 23, 42, 0.06);
+  --shadow-card: 0 12px 40px -12px rgba(15, 23, 42, 0.08);
+  --shadow-glow: 0 20px 60px -20px rgba(197, 160, 89, 0.2);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    line-height: 1.6;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-foreground);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+@media (min-width: 768px) {
+  .container-page {
+    padding-inline: 2.5rem;
+  }
+}
+@media (min-width: 1280px) {
+  .container-page {
+    padding-inline: 4rem;
+  }
+}
+
+@layer utilities {
+  .container-px {
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-px {
+      padding-inline: 2.5rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .container-px {
+      padding-inline: 4rem;
+    }
+  }
+  .glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .text-gradient {
+    background: linear-gradient(120deg, #0f172a 0%, #c5a059 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .mesh-bg {
+    background-color: #f8fafc;
+    background-image:
+      radial-gradient(at 15% 20%, rgba(15, 23, 42, 0.05) 0px, transparent 55%),
+      radial-gradient(at 85% 10%, rgba(197, 160, 89, 0.08) 0px, transparent 50%),
+      radial-gradient(at 75% 85%, rgba(15, 23, 42, 0.04) 0px, transparent 55%);
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Legal Status utilities */
+  .status-success {
+    background-color: color-mix(in srgb, var(--color-success) 12%, transparent);
+    color: var(--color-success);
+  }
+  .status-processing {
+    background-color: color-mix(in srgb, var(--color-processing) 15%, transparent);
+    color: #9a7b3e;
+  }
+  .status-urgent {
+    background-color: color-mix(in srgb, var(--color-urgent) 12%, transparent);
+    color: var(--color-urgent);
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-18px) translateX(8px);
+  }
+}
+@keyframes float-slower {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(14px) translateX(-10px);
+  }
+}
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-float-slow {
+  animation: float-slow 9s ease-in-out infinite;
+}
+.animate-float-slower {
+  animation: float-slower 12s ease-in-out infinite;
+}
+.animate-spin-slow {
+  animation: spin-slow 32s linear infinite;
+  transform-origin: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
