@@ -2,8 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, lazy, Suspense } from "react";
 import { buildHead } from "@/components/site/seo";
 
-// تحسين LCP: تحميل القسم الأول ونموذج طلب الاستشارة فوراً
+// تحسين LCP: تحميل القسم الأول ونموذج طلب الاستشارة المعتمد فوراً
 import { HeroSection } from "@/sections/HeroSection";
+import { ComplaintFormSection } from "@/sections/ComplaintFormSection.tsx";
 import { faqPreview } from "@/sections/FaqSection";
 
 // تحسين TBT و Unused JS: تحميل باقي الأقسام كسولياً (Lazy Loading)
@@ -98,14 +99,14 @@ export const Route = createFileRoute("/")({
           href: "/fonts/tajawal-v12-latin-regular.woff2",
           as: "font",
           type: "font/woff2",
-          crossorigin: "anonymous",
+          crossOrigin: "anonymous",
         },
         {
           rel: "preload",
           href: "/fonts/tajawal-v12-latin-700.woff2",
           as: "font",
           type: "font/woff2",
-          crossorigin: "anonymous",
+          crossOrigin: "anonymous",
         },
       ],
     };
@@ -137,42 +138,20 @@ function HomePage() {
   }, []);
 
   return (
-    <>
-      {/* الأقسام الهامة فوراً لتحقيق أقصى سرعة LCP */}
+    <main className="w-full overflow-x-hidden">
+      {/* الأقسام الرئيسية */}
       <HeroSection onPrimaryClick={scrollToForm} />
-      <ConsultationFormSection />
+      
+      {/* استدعاء قسم النموذج الأصلي المصمم سابقاً */}
+      <ComplaintFormSection />
 
       {/* الأقسام الثانوية عبر Suspense */}
-      <Suspense fallback={<div className="min-h-[200px]" />}>
+      <Suspense fallback={<div className="min-h-[200px] w-full" />}>
         <HowItWorksSection />
         <WhyUsSection onPrimaryClick={scrollToForm} />
         <FaqSection />
         <CtaSection onPrimaryClick={scrollToForm} />
       </Suspense>
-    </>
-  );
-}
-
-// Keep the form section local so the route does not depend on a missing module.
-function ConsultationFormSection() {
-  return (
-    <section id="consultation-form" aria-labelledby="consultation-form-title">
-      <h2 id="consultation-form-title">طلب استشارة قانونية</h2>
-      <form>
-        <label>
-          الاسم
-          <input name="name" type="text" required />
-        </label>
-        <label>
-          البريد الإلكتروني
-          <input name="email" type="email" required />
-        </label>
-        <label>
-          تفاصيل الاستشارة
-          <textarea name="message" required />
-        </label>
-        <button type="submit">إرسال الطلب</button>
-      </form>
-    </section>
+    </main>
   );
 }
